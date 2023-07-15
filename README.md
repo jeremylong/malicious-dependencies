@@ -2,7 +2,9 @@
 
 Slightly malicious dependency (spring-build-analyzer) and a demonstration project (demo). This project is intended to highlight the issues of including untrusted dependencies in your builds.
 
-## building
+## demonstration
+
+**The project requires Maven and Java 17.**
 
 While there is a base `pom.xml` - the two projects should be built interdependently:
 
