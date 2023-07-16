@@ -65,7 +65,7 @@ The `demo` project is setup to create re-producible builds. This is useful for u
 
 ```bash
 $ shasum -a 256 target/demo-0.0.1-SNAPSHOT.jar
-5a88a9ede7ed5bc4822ba84edef93b0d10aeba4aceca60c2b98636d5ec3d448c  target/demo-0.0.1-SNAPSHOT.jar
+61fbe3f17c2638ed21da283b06f1dec342355c1937f01bef8231aeb294ff8417  target/demo-0.0.1-SNAPSHOT.jar
 
 $ unzip -v target/demo-0.0.1-SNAPSHOT.jar
 ...
