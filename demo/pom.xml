@@ -18,6 +18,7 @@
         <java.version>17</java.version>
         <!--reproducible builds are important-->
         <project.build.outputTimestamp>2023-01-01T00:00:00Z</project.build.outputTimestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ssZ</maven.build.timestamp.format>
     </properties>
     <dependencies>
         <dependency>

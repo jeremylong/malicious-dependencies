@@ -38,3 +38,8 @@ jobs:
         mvn -B package --file pom.xml -DskipTests=true
         sha256sum target/demo-0.0.1-SNAPSHOT.jar
         unzip -v target/demo-0.0.1-SNAPSHOT.jar 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: demo-app
+        path: demo/target/demo-0.0.1-SNAPSHOT.jar
