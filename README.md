@@ -61,7 +61,7 @@ Currently, the reverse shell is benign as it only connects back to localhost on 
 
 ## Reproducible Builds
 
-The `demo` project is setup to create re-producible builds. This is useful for understanding that if the build has been compromised by including a malicious dependency or plugin - it doesn't matter where you build the project it is **Reproducibly Compromised**.
+The `demo` project is set up to create re-producible builds. This is useful for understanding that if the build has been compromised by including a malicious dependency or plugin - it doesn't matter where you build the project it is **Reproducibly Compromised**.
 
 ```bash
 $ shasum -a 256 target/demo-0.0.1-SNAPSHOT.jar
