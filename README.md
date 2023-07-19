@@ -70,3 +70,18 @@ $ shasum -a 256 target/demo-0.0.1-SNAPSHOT.jar
 $ unzip -v target/demo-0.0.1-SNAPSHOT.jar
 ...
 ```
+
+## Debugging
+
+Did the above walk through not work? There might be a few reasons:
+
+1. `curl localhost:8080` didn't return `Greetings from Spring Boot!`: 
+
+   - Something is already running on port 8080. When the demo app is not running - ensure that nothing is running on port 8080.
+
+2. No connection was made back to `nc -l 9999`.
+   - Ensure nothing is running on port `9999`. Alternatively, update the port in the [CtxtListener source](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L31-L32) and rerun the above steps.
+   - From the root of the project, after building the demo app validate that the `CtxtListener.class` exists: `ls demo/target/classes/io/github/jeremylong/spring/analyzer/demo/CtxtListener.class`. If the class does not exist, consider adding debugging statements [here](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L82) and re-installing the `spring-build-analyzer` and rebuilding the demo application.
+   - If the `CtxtListener.class` does exist, uncomment the system out statements [here](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L63-L67) and re-install the `spring-build-analyzer`, rebuild the demo application, start netcat, and then run the demo app. The added debugging output may show what is going wrong on your system.
+
+
