@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @SupportedAnnotationTypes("org.springframework.boot.autoconfigure.SpringBootApplication")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class EnsureSpringAnnotation extends AbstractProcessor {
 
