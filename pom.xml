@@ -5,14 +5,14 @@
 	<groupId>io.github.jeremylong.spring.analyzer</groupId>
 	<artifactId>parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo-parent</name>
+	<name>spring-build-analyzer-parent</name>
 	<packaging>pom</packaging>
-	<description>Parent demo project</description>
+	<description>Parent spring-build-analyzer project</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<modules>
+		<module>build-helper</module>
         <module>spring-build-analyzer</module>
-        <module>demo</module>
     </modules>
 </project>

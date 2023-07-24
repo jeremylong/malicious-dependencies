@@ -6,12 +6,10 @@ Slightly malicious dependency (spring-build-analyzer) and a demonstration projec
 
 **The project requires Maven and Java 17.**
 
-While there is a base `pom.xml` - the two projects should be built interdependently:
+First build and install (locally) the `spring-build-analyzer` by running:
 
 ```bash
-cd spring-build-analyzer
-mvn install -DskipTests=true
-cd ..
+mvn install
 ```
 
 Next, in a different terminal, open netcat to listen on port 9999:
@@ -20,7 +18,7 @@ Next, in a different terminal, open netcat to listen on port 9999:
 nc -l 9999
 ```
 
-Then compile and run the demo application:
+The `demo` application is a completely separate project that uses the `spring-build-analyzer` JAR. Compile and run the demo application:
 
 ```bash
 cd demo
@@ -65,7 +63,7 @@ The `demo` project is set up to create re-producible builds. This is useful for 
 
 ```bash
 $ shasum -a 256 target/demo-0.0.1-SNAPSHOT.jar
-b6c9aff1bcb9fd67be3aa96a97f33c626df801b62ffb2ec39b6c1a7f8878d210  target/demo-0.0.1-SNAPSHOT.jar
+ef8cd213bab9fd7649ff04774e55756faa563fae19f5ca880c499a6d430fc4b8  target/demo-0.0.1-SNAPSHOT.jar
 
 $ unzip -v target/demo-0.0.1-SNAPSHOT.jar
 ...
