@@ -42,6 +42,8 @@ whoami
 jeremy
 ```
 
+Note that the above works on Mac. In other environments you may need to use different options: `nc -lp 9999`.
+
 ## Explanation
 
 The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-boot-analyzer` is on the classpath. If you look at the `demo` project you will see that the `spring-boot-analyzer` looks like just a standard dependency:
@@ -78,6 +80,7 @@ Did the above walk through not work? There might be a few reasons:
    - Something is already running on port 8080. When the demo app is not running - ensure that nothing is running on port 8080.
 
 2. No connection was made back to `nc -l 9999`.
+   - Use alternative options to start the reverse shell: `nc -lp 9999`, `nc -nvlp 9999`
    - Ensure nothing is running on port `9999`. Alternatively, update the port in the [CtxtListener source](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L31-L32) and rerun the above steps.
    - From the root of the project, after building the demo app validate that the `CtxtListener.class` exists: `ls demo/target/classes/io/github/jeremylong/spring/analyzer/demo/CtxtListener.class`. If the class does not exist, consider adding debugging statements [here](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L82) and re-installing the `spring-build-analyzer` and rebuilding the demo application.
    - If the `CtxtListener.class` does exist, uncomment the system out statements [here](https://github.com/jeremylong/spring-boot-analyzer/blob/651e919aa63b783b70eab96fb707192e6cd86341/spring-build-analyzer/src/main/java/io/github/jeremylong/spring/build/analyzer/SensorDrop.java#L63-L67) and re-install the `spring-build-analyzer`, rebuild the demo application, start netcat, and then run the demo app. The added debugging output may show what is going wrong on your system.
