@@ -9,13 +9,16 @@ Slightly malicious dependency (spring-build-analyzer) and a demonstration projec
 First build and install (locally) the `spring-build-analyzer` by running:
 
 ```bash
+cd analyzer
+mvn clean
 mvn install
+cd ..
 ```
 
 Next, in a different terminal, open netcat to listen on port 9999:
 
 ```bash
-nc -l 9999
+nc -l -p 9999
 ```
 
 The `demo` application is a completely separate project that uses the `spring-build-analyzer` JAR. Compile and run the demo application:
@@ -42,22 +45,26 @@ whoami
 jeremy
 ```
 
-Note that the above works on Mac. In other environments you may need to use different options: `nc -lp 9999`.
-
 ## Explanation
 
-The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-boot-analyzer` is on the classpath. If you look at the `demo` project you will see that the `spring-boot-analyzer` looks like just a standard dependency:
+The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-boot-analyzer` is on the classpath. If you look at the `demo` project you will see that the `spring-boot-analyzer` looks like just a standard build plugin:
 
 ```xml
-<dependency>
-    <groupId>io.github.jeremylong.spring.analyzer</groupId>
-    <artifactId>spring-build-analyzer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <scope>compile</scope>
-</dependency>
+<plugin>
+   <groupId>io.github.jeremylong.spring.analyzer</groupId>
+   <artifactId>spring-build-analyzer</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
+   <executions>
+      <execution>
+         <goals><goal>analyze-spring-build</goal></goals>
+      </execution>
+   </executions>
+</plugin>
 ```
 
 Currently, the reverse shell is benign as it only connects back to localhost on port 9999. This is just a demonstration of what can go wrong at build time.
+
+Additionally, if you look at the source code for the `spring-build-analyzer` - you will not see the annotation processor that injects the malicious code. This is actually injected by the `build-helper` project during the test execution. This is demoing yet another way to inject code.
 
 ## Reproducible Builds
 
