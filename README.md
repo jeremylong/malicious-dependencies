@@ -1,4 +1,4 @@
-# spring-build-analyzer
+# malicious-dependencies
 
 Slightly malicious dependency (spring-build-analyzer) and a demonstration project (demo). This project is intended to highlight the issues of including untrusted dependencies in your builds.
 
@@ -7,6 +7,8 @@ Slightly malicious dependency (spring-build-analyzer) and a demonstration projec
 **The project requires Maven and Java 17.**
 
 First build and install (locally) the `spring-build-analyzer` by running:
+
+**DO NOT** shorten the following to `mvn clean install` as things may not work.
 
 ```bash
 cd analyzer
@@ -40,29 +42,27 @@ You should receive back `Greetings from Spring Boot!`. Very exciting, isn't it?
 Last, return to the tab with the netcat listener and the reverse shell should have connected; you can test by running `whoami`:
 
 ```bash
-$ nc -l 9999
+$ nc -l -p 9999
 whoami
 jeremy
 ```
 
 ## Explanation
 
-The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-boot-analyzer` is on the classpath. If you look at the `demo` project you will see that the `spring-boot-analyzer` looks like just a standard build plugin:
+The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-boot-analyzer` is on the compile-time classpath. If you look at the `demo` project you will see that the `spring-boot-analyzer` is just a compile time dependency:
 
 ```xml
-<plugin>
+<dependency>
    <groupId>io.github.jeremylong.spring.analyzer</groupId>
    <artifactId>spring-build-analyzer</artifactId>
    <version>0.0.1-SNAPSHOT</version>
-   <executions>
-      <execution>
-         <goals><goal>analyze-spring-build</goal></goals>
-      </execution>
-   </executions>
-</plugin>
+   <scope>compile</scope>
+</dependency>
 ```
 
-Currently, the reverse shell is benign as it only connects back to localhost on port 9999. This is just a demonstration of what can go wrong at build time.
+Currently, the reverse shell is benign as it only connects back to localhost on port 9999. This is just a demonstration of what can go wrong at build time. This could have been a build plugin, a test dependency, etc. -
+anything running during the build can modify the build output. This type of attack does not have to rely on
+annotation processing.
 
 Additionally, if you look at the source code for the `spring-build-analyzer` - you will not see the annotation processor that injects the malicious code. This is actually injected by the `build-helper` project during the test execution. This is demoing yet another way to inject code.
 
@@ -72,7 +72,7 @@ The `demo` project is set up to create re-producible builds. This is useful for 
 
 ```bash
 $ shasum -a 256 target/demo-0.0.1-SNAPSHOT.jar
-ef8cd213bab9fd7649ff04774e55756faa563fae19f5ca880c499a6d430fc4b8  target/demo-0.0.1-SNAPSHOT.jar
+898086484e4712b6036565659076f1c6dec5cd3de2534f9c6b60b65df4eded2c  target/demo-0.0.1-SNAPSHOT.jar
 
 $ unzip -v target/demo-0.0.1-SNAPSHOT.jar
 ...
