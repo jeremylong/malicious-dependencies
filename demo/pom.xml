@@ -47,17 +47,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <plugin>
-                <groupId>io.github.jeremylong.spring.analyzer</groupId>
-                <artifactId>spring-build-analyzer</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <goals><goal>analyze-spring-build</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
