@@ -30,12 +30,13 @@ jobs:
     - name: Build spring-build-analyzer
       run: |
         cd analyzer
-        mvn -B install --file pom.xml -DskipTests=true
+        mvn clean
+        mvn -B install -DskipTests=true
         cd ..
     - name: Build demo
       run: |
         cd demo
-        mvn -B package --file pom.xml -DskipTests=true
+        mvn -B package -DskipTests=true
         sha256sum target/demo-0.0.1-SNAPSHOT.jar
         ls target/classes/io/github/jeremylong/spring/analyzer/demo/
     - name: Upload artifact
