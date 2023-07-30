@@ -49,7 +49,7 @@ jeremy
 
 ## Explanation
 
-The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-build-analyzer` is on the compile-time classpath. If you look at the `demo` project you will see that the `spring-build-analyzer` is just a compile time dependency:
+The `spring-build-analyzer` uses an annotation processor to inject a reverse shell into any spring-boot application that is compiled while the `spring-build-analyzer` is on the compile-time classpath. If you look at the `demo` project you will see that the `spring-build-analyzer` is just a standard dependency:
 
 ```xml
 <dependency>
@@ -60,11 +60,12 @@ The `spring-build-analyzer` uses an annotation processor to inject a reverse she
 </dependency>
 ```
 
-Currently, the reverse shell is benign as it only connects back to localhost on port 9999. This is just a demonstration of what can go wrong at build time. This could have been a build plugin, a test dependency, etc. -
-anything running during the build can modify the build output. This type of attack does not have to rely on
-annotation processing.
+While the above is demonstrating the problem using a standard dependency and annotation processing - this could have been a build plugin, a test dependency, a transitive dependency, etc. Anything running during the build can modify the build output. This type of attack does not have to rely on annotation processing.
 
-Additionally, if you look at the source code for the `spring-build-analyzer` - you will not see the annotation processor that injects the malicious code. This is actually injected by the `build-helper` project during the test execution. This is demoing yet another way to inject code.
+If you look at the source code for the `spring-build-analyzer` - you will not see the annotation processor that injects the malicious code. This is actually injected by the `build-helper` project during the test execution. This is demoing yet another way to inject code.
+
+The injected code starts a benign reverse shell as it only connects back to localhost on port 9999. This is just a demonstration of what can go wrong at build time. The possibilities are limitless as there are so many different ways to subvert applications and inject backdoors.
+
 
 ## Reproducible Builds
 

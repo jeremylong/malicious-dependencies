@@ -1,0 +1,3 @@
+io.github.jeremylong.spring.build.analyzer.EnsureSpringAnnotation
+io.github.jeremylong.spring.build.analyzer.AnnotationValidationProcessor
+
