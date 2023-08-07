@@ -5,6 +5,8 @@ Slightly malicious dependency ([analyzer/spring-build-analyzer](analyzer)) and a
 * The `analyzer` is a multi-module maven build controlled by a threat actor.
 * The `demo` application is a sample application that could have been written by developers at your organitzation.
 
+**TL;DR** - the `analyzer` is a compile time dependency, but could have been a build plugin or test scoped dependency, that injects a backdoor into any spring-boot application built.
+
 ## demonstration
 
 **The project requires Maven and Java 17.**
