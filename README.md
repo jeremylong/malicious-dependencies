@@ -2,6 +2,9 @@
 
 Slightly malicious dependency ([analyzer/spring-build-analyzer](analyzer)) and a demonstration project ([demo](demo)). This project is intended to highlight the issues of including untrusted dependencies in your builds.
 
+* The `analyzer` is a multi-module maven build controlled by a threat actor.
+* The `demo` application is a sample application that could have been written by developers at your organitzation.
+
 ## demonstration
 
 **The project requires Maven and Java 17.**
