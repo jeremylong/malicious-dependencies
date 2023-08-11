@@ -7,7 +7,7 @@ Slightly malicious dependency ([analyzer/spring-build-analyzer](analyzer)) and a
 
 **TL;DR** - the `analyzer` is a compile time dependency, but could have been a build plugin or test scoped dependency, that injects a backdoor into any spring-boot application built.
 
-<img width="1110" alt="image" src="https://github.com/jeremylong/malicious-dependencies/assets/862914/81b55c52-5584-4331-a66c-9d7320b2b024">
+<img width="1110" alt="image" src="explanation.png">
 
 ## demonstration
 
